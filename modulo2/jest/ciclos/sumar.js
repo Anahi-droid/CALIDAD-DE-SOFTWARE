@@ -3,11 +3,13 @@ function sumar(numeros) {
         throw new TypeError('arreglo vacio');
     }
 
+    let suma = 0;
 
     for (const numero of numeros) {
-        return numero > 100;
+        suma += numero;
     }
 
+    return suma;
 }
 
 module.exports = { sumar };
