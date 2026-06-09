@@ -1,18 +1,29 @@
-#Incluir al stage 
-git add.
+# Comandos Git
+
+## Incluir al stage
+
+```bash
 git add archivo_especifico.py
+```
 
+## Visualizar cambios
 
-#Visualizar cambios 
+```bash
 git status
+```
 
-#Comprometer o seleccionarcambios para subir al repositorio remoto
+## Confirmar cambios
+
+```bash
 git commit -m "Hola xd"
+```
 
-#Establecer configuraciones basica 
+## Configuración básica
 
-git config --global user.mail "lozaanahi02@gmail.com"
+```bash
+git config --global user.email "tu_correo@gmail.com"
+git config --global user.name "Anahi-droid"
 git config --global core.editor "code --wait"
 git config --global color.ui auto
-git config --global user.name "Ahai-droid"
 git config --global init.defaultBranch main
+```
