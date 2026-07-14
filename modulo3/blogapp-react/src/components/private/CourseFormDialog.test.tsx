@@ -1,5 +1,5 @@
 // src/components/private/CourseFormDialog.test.tsx
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen, waitFor, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import CourseFormDialog from './CourseFormDialog'
 
@@ -62,7 +62,11 @@ describe('CourseFormDialog — creación', () => {
     const emailInput = screen.getByLabelText('Email del instructor')
     await user.clear(emailInput)
     await user.type(emailInput, 'no-es-un-email')
-    await user.click(screen.getByRole('button', { name: /guardar/i }))
+
+    // El input es type="email", así que jsdom aplica su propia validación nativa (constraint
+    // validation) y bloquea el evento "submit" antes de que React llegue a correrlo si hacemos
+    // click en el botón. Disparamos el submit manualmente para poder evaluar el mensaje de Zod.
+    fireEvent.submit(screen.getByRole('button', { name: /guardar/i }).closest('form')!)
 
     expect(await screen.findByText('Email inválido')).toBeInTheDocument()
     expect(createCourse).not.toHaveBeenCalled()

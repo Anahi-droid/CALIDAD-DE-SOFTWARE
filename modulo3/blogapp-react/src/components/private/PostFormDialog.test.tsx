@@ -15,7 +15,9 @@ vi.mock('@/api/categories.api', () => ({
 import { createPost, updatePost } from '@/api/posts.api'
 import { getCategories } from '@/api/categories.api'
 
-const CATEGORY_ID = '11111111-1111-1111-1111-111111111111'
+// UUID válido: la tercera sección debe empezar en 1-5 (versión) y la cuarta en 8-b (variante),
+// o `z.string().uuid()` la rechaza igual que rechazaría cualquier UUID mal formado.
+const CATEGORY_ID = '11111111-1111-4111-8111-111111111111'
 const onOpenChange = vi.fn()
 const onSaved = vi.fn()
 
@@ -64,7 +66,9 @@ describe('PostFormDialog — creación', () => {
     await user.type(screen.getByLabelText('Contenido'), 'Contenido de prueba')
     await user.click(screen.getByRole('button', { name: /guardar/i }))
 
-    expect(await screen.findByText('Selecciona una categoría')).toBeInTheDocument()
+    // El mismo texto también aparece como placeholder dentro del <SelectValue>, por eso acotamos
+    // la búsqueda al <p> del mensaje de error para evitar un "Found multiple elements".
+    expect(await screen.findByText('Selecciona una categoría', { selector: 'p' })).toBeInTheDocument()
     expect(createPost).not.toHaveBeenCalled()
   })
 })
