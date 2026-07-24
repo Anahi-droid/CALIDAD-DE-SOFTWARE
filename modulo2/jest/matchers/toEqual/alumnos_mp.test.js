@@ -1,4 +1,4 @@
-const { crearAlumno } = require('./alumnos');
+const { crearAlumno } = require('./alumnos_mp');
 
 describe('Pruebas para crearAlumno', () => {
   test('Happy path: Retorna el objeto alumno correctamente', () => {
